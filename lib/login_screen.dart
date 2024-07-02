@@ -26,28 +26,36 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Login')),
+      appBar: AppBar(title: Text('Benvingut!')),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Username'),
+            mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Usuari',
+                    border: OutlineInputBorder(),
+                  ),
                 onSaved: (value) => _username = value!,
-                validator: (value) => value!.isEmpty ? 'Enter username' : null,
+                validator: (value) => value!.isEmpty ? 'Introdueix Usuari' : null,
               ),
+              SizedBox(height: 16),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: InputDecoration(
+                  labelText: 'Contrasenya',
+                  border: OutlineInputBorder(),
+                  ),
                 obscureText: true,
                 onSaved: (value) => _password = value!,
-                validator: (value) => value!.isEmpty ? 'Enter password' : null,
+                validator: (value) => value!.isEmpty ? 'Introdueix Contrasenya' : null,
               ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: _login,
-                child: Text('Login'),
+                child: Text('Acceptar'),
               ),
             ],
           ),

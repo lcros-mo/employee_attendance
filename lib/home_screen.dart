@@ -28,26 +28,44 @@ class _HomeScreenState extends State<HomeScreen> {
     _loadEntries();
   }
 
+  void _deleteEntry(int id) async {
+    await _dbService.deleteEntry(id);
+    _loadEntries();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Home')),
       body: Column(
         children: [
-          ElevatedButton(
-            onPressed: () => _addEntry('Entrada'),
-            child: Text('Entrada'),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: ()=> _addEntry('Entrada'),
+                  child: Text('Registrar Entrada')
+                  ),
+                ElevatedButton(
+                  onPressed: () => _addEntry('Salida'),
+                  child: Text('Salida'),
+                  ),
+              ],
+            ),
           ),
-          ElevatedButton(
-            onPressed: () => _addEntry('Salida'),
-            child: Text('Salida'),
-          ),
+          
           Expanded(
             child: ListView.builder(
               itemCount: _entries.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text('${_entries[index]['type']}: ${_entries[index]['timestamp']}'),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () => _deleteEntry(_entries[index]['id']),
+                  ),
                 );
               },
             ),

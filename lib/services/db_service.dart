@@ -39,7 +39,7 @@ class DBService {
     final db = await database;
     await db.insert(
       'entries',
-      {'type': type, 'timestamp': DateTime.now().toString()},
+      {'type': type, 'timestamp': DateTime.now().toIso8601String()},
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -47,5 +47,14 @@ class DBService {
   Future<List<Map<String, dynamic>>> getEntries() async {
     final db = await database;
     return await db.query('entries', orderBy: 'timestamp DESC');
+  }
+
+  Future<void> deleteEntry(int id) async {
+    final db = await database;
+    await db.delete( 
+    'entries',
+    where: 'id = ?',
+    whereArgs:[id],
+    );
   }
 }

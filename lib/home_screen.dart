@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'services/db_service.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
   final DBService _dbService = DBService();
   List<Map<String, dynamic>> _entries = [];
 
@@ -36,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
+      appBar: AppBar(title: const Text('Home')),
       body: Column(
         children: [
           Padding(
@@ -45,17 +47,16 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
-                  onPressed: ()=> _addEntry('Entrada'),
-                  child: Text('Registrar Entrada')
-                  ),
+                  onPressed: () => _addEntry('Entrada'),
+                  child: const Text('Registrar Entrada'),
+                ),
                 ElevatedButton(
                   onPressed: () => _addEntry('Salida'),
-                  child: Text('Salida'),
-                  ),
+                  child: const Text('Salida'),
+                ),
               ],
             ),
           ),
-          
           Expanded(
             child: ListView.builder(
               itemCount: _entries.length,
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 return ListTile(
                   title: Text('${_entries[index]['type']}: ${_entries[index]['timestamp']}'),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () => _deleteEntry(_entries[index]['id']),
                   ),
                 );
